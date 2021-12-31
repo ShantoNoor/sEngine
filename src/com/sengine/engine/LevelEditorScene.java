@@ -15,35 +15,75 @@ public class LevelEditorScene extends Scene{
     private boolean changingScene = false;
     private float timeToChangeScene = 2.0f;
 
-    private String vertexShaderSrc = "#version 330\n" +
-            "layout (location = 0) in vec3 aPos;\n" +
-            "layout (location = 1) in vec4 aColor;\n" +
-            "\n" +
-            "out vec4 fColor;\n" +
-            "\n" +
-            "void main()\n" +
-            "{\n" +
-            "    fColor = aColor;\n" +
-            "    gl_Position = vec4(aPos, 1.0f);\n" +
-            "}";
+//    private String vertexShaderSrc = "#version 330\n" +
+//            "layout (location = 0) in vec3 aPos;\n" +
+//            "layout (location = 1) in vec4 aColor;\n" +
+//            "\n" +
+//            "out vec4 fColor;\n" +
+//            "\n" +
+//            "void main()\n" +
+//            "{\n" +
+//            "    fColor = aColor;\n" +
+//            "    gl_Position = vec4(aPos, 1.0f);\n" +
+//            "}";
+//    private String fragmentShaderSrc = "#version 330\n" +
+//            "in vec4 fColor;\n" +
+//            "\n" +
+//            "out vec4 color;\n" +
+//            "\n" +
+//            "void main()\n" +
+//            "{\n" +
+//            "    color = fColor;\n" +
+//            "}";
+
+    private String vertexShaderSrc = "#version 330 \n" +
+            "layout (location = 0) in vec3 pos; \n" +
+            "out vec3 position; \n" +
+            "void main() \n" +
+            "{ \n" +
+            "    gl_Position = vec4(pos, 1.0); \n" +
+            "    position = pos; \n" +
+            "} ";
     private String fragmentShaderSrc = "#version 330\n" +
-            "in vec4 fColor;\n" +
-            "\n" +
-            "out vec4 color;\n" +
-            "\n" +
+            "out vec4 colour;\n" +
+            "in vec3 position;\n" +
             "void main()\n" +
             "{\n" +
-            "    color = fColor;\n" +
+            "    float a = position.x * 2;\n" +
+            "    float b = position.y * 2;\n" +
+            "    float n = 0.0f;\n" +
+            "\n" +
+            "    float aa = (a * a) - (b * b) + a;\n" +
+            "    float bb = 2 * (a * b) + b;\n" +
+            "\n" +
+            "    float cc = 0.0f;\n" +
+            "    float dd = 0.0f;\n" +
+            "\n" +
+            "    while(abs(aa * aa + bb * bb) < 4) {\n" +
+            "        n += 0.05;\n" +
+            "        if(n > 1.0f) break;\n" +
+            "\n" +
+            "        cc = aa;\n" +
+            "        dd = bb;\n" +
+            "        aa = cc * cc - dd * dd + a;\n" +
+            "        bb = 2 * cc * dd + b;\n" +
+            "    }\n" +
+            "\n" +
+            "    colour = vec4(0.0f, n, n, n);\n" +
+            "    \n" +
+            "    \n" +
             "}";
 
     private int vertexID, fragmentID, shaderProgram;
 
+
+    float val = 1.0f;
     private float[] vertexArray = {
             // position          // color
-            0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f,
-            -0.5f, 0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 1.0f,
-            0.5f, 0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 1.0f,
-            -0.5f, -0.5f, 0.0f,   1.0f, 1.0f, 0.0f, 1.0f
+            val, -val, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f,
+            -val, val, 0.0f,   0.0f, 1.0f, 0.0f, 1.0f,
+            val, val, 0.0f,   0.0f, 0.0f, 1.0f, 1.0f,
+            -val, -val, 0.0f,   1.0f, 1.0f, 0.0f, 1.0f
     };
 
     private int[] elementArray = {

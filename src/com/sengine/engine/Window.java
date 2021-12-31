@@ -57,7 +57,7 @@ public class Window {
     }
 
     public void run() {
-        System.out.println("Hello LWJGL " + Version.getVersion() + "!");
+        System.out.println("LWJGL Version: " + Version.getVersion());
 
         init();
         loop();
@@ -112,6 +112,8 @@ public class Window {
 
         // important line
         GL.createCapabilities();
+
+        System.out.println("OpenGL Version: " + glGetString(GL_VERSION));
 
         changeScene(0);
     }
