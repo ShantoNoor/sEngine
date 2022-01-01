@@ -1,9 +1,12 @@
 package com.sengine.engine;
 
+import com.sengine.renderer.Renderer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Scene {
+    protected Renderer renderer;
     protected Camera camera;
     private boolean isRunning = false;
     protected List<GameObject> gameObjects = new ArrayList<>();
@@ -14,14 +17,22 @@ public abstract class Scene {
     public void start() {
         for(GameObject go : gameObjects) {
             go.start();
+            renderer.add(go);
         }
         isRunning = true;
     }
 
     public void addGameObjectToScene(GameObject go) {
-        gameObjects.add(go);
-        if(isRunning) {
+        if (!isRunning) {
+            gameObjects.add(go);
+        } else {
+            gameObjects.add(go);
             go.start();
+            renderer.add(go);
         }
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }

@@ -45,9 +45,9 @@ public class Window {
         this.width = 1280;
         this.title = "Mario";
 
-        r = 1.0f;
-        g = 1.0f;
-        b = 1.0f;
+        r = 0.0f;
+        g = 0.0f;
+        b = 0.0f;
     }
 
     public static Window get() {
@@ -55,6 +55,10 @@ public class Window {
             Window.window = new Window();
         }
         return Window.window;
+    }
+
+    public static Scene getScene() {
+        return get().currentScene;
     }
 
     public void run() {
@@ -83,7 +87,7 @@ public class Window {
         // config glfw
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        //glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
+        // glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
 //        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);

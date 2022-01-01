@@ -5,10 +5,19 @@ import java.util.List;
 
 public class GameObject {
     private String name;
-    private List<Component> components = new ArrayList<>();
+    private List<Component> components;
+    public Transform transform;
 
     public GameObject(String name) {
         this.name = name;
+        transform = new Transform();
+        components = new ArrayList<>();
+    }
+
+    public GameObject(String name, Transform transform) {
+        this.name = name;
+        this.transform = transform;
+        components = new ArrayList<>();
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass) {
